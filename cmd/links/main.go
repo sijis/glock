@@ -10,7 +10,13 @@ func main() {
     s := "sijis"
     fmt.Println(s)
 
-    resp, err := http.Get("http://localhost:5000")
+    postToWeb("/")
+}
+
+func postToWeb(endpoint string) {
+
+    url := "http://localhost:5000" + endpoint
+    resp, err := http.Get(url)
     if err != nil {
         //fmt.Println("Error: ", err)
         panic(err)
