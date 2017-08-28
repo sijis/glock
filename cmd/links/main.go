@@ -10,10 +10,10 @@ func main() {
     s := "sijis"
     fmt.Println(s)
 
-    postToWeb("/")
+    fmt.Println(postToWeb("/"))
 }
 
-func postToWeb(endpoint string) {
+func postToWeb(endpoint string) string {
 
     url := "http://localhost:5000" + endpoint
     resp, err := http.Get(url)
@@ -24,5 +24,5 @@ func postToWeb(endpoint string) {
 
     defer resp.Body.Close()
     body, err := ioutil.ReadAll(resp.Body)
-    fmt.Println(string(body))
+    return string(body)
 }
