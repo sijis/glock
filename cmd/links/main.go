@@ -8,11 +8,18 @@ import (
     "os/user"
 )
 
+type webData struct {
+    name string
+    a map[string]string
+}
+
 func main() {
     user, _ := user.Current()
     name := flag.String("username", user.Username, "Username used to lock")
     flag.Parse()
     fmt.Println("Using username: " + *name)
+    x := map[string]string{"name": "john", "last_name": "smith"}
+    w := webData{*name, x}
     fmt.Println(postToWeb("/"))
 }
 
