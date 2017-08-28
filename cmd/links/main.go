@@ -1,15 +1,18 @@
 package main
 
 import (
+    "flag"
     "fmt"
     "io/ioutil"
     "net/http"
+    "os/user"
 )
 
 func main() {
-    s := "sijis"
-    fmt.Println(s)
-
+    user, _ := user.Current()
+    name := flag.String("username", user.Username, "Username used to lock")
+    flag.Parse()
+    fmt.Println("Using username: " + *name)
     fmt.Println(postToWeb("/"))
 }
 
