@@ -10,27 +10,26 @@ import (
 )
 
 type webData struct {
-    name string
-    a map[string]string
+    endpoint string
+    dataset map[string]string
 }
 
 func main() {
     user, _ := user.Current()
     name := flag.String("username", user.Username, "Username used to lock")
     flag.Parse()
-    fmt.Println("Using username: " + *name)
-    x := map[string]string{"name": "john", "last_name": "smith"}
-    w := webData{*name, x}
-    fmt.Println(postToWeb("/post", w))
+    dataset := map[string]string{"name": *name, "misc": "other_stuff"}
+    w := webData{"/post", dataset}
+    fmt.Println(postToWeb(w))
 }
 
-func postToWeb(endpoint string, data webData) string {
+func postToWeb(data webData) string {
 
-    fmt.Println("In function: ", data.name)
-    _url := "http://localhost:5000" + endpoint
+    fmt.Println("[DEBUG] postToWeb: ", data)
+    _url := "http://localhost:5000" + data.endpoint
 
     params := url.Values{}
-    for k, v := range data.a {
+    for k, v := range data.dataset {
         params.Add(k, v)
     }
 
