@@ -5,6 +5,7 @@ import (
     "fmt"
     "io/ioutil"
     "net/http"
+    "net/url"
     "os/user"
 )
 
@@ -20,13 +21,21 @@ func main() {
     fmt.Println("Using username: " + *name)
     x := map[string]string{"name": "john", "last_name": "smith"}
     w := webData{*name, x}
-    fmt.Println(postToWeb("/"))
+    fmt.Println(postToWeb("/post", w))
 }
 
-func postToWeb(endpoint string) string {
+func postToWeb(endpoint string, data webData) string {
 
-    url := "http://localhost:5000" + endpoint
-    resp, err := http.Get(url)
+    fmt.Println("In function: ", data.name)
+    _url := "http://localhost:5000" + endpoint
+
+    params := url.Values{}
+    for k, v := range data.a {
+        params.Add(k, v)
+    }
+
+    resp, err := http.PostForm(_url, params)
+
     if err != nil {
         //fmt.Println("Error: ", err)
         panic(err)
