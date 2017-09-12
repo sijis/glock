@@ -36,7 +36,7 @@ func main() {
 
 func postToWeb(data webData) string {
 
-	fmt.Println("[DEBUG] postToWeb: ", data)
+	//fmt.Println("[DEBUG] postToWeb: ", data)
 	params := url.Values{}
 	for k, v := range data.dataset {
 		params.Add(k, v)
