@@ -16,10 +16,13 @@ type webData struct {
 
 func main() {
     user, _ := user.Current()
-    name := flag.String("username", user.Username, "Username used to lock")
+    name := flag.String("username", user.Username, "Username used to lock/unlock chest.")
+    action := flag.String("action", "locked", "Action to take.")
+    chest := flag.String("chest", "", "Which chest to lock/unlock.")
     flag.Parse()
-    dataset := map[string]string{"name": *name, "misc": "other_stuff"}
-    w := webData{"/post", dataset}
+    dataset := map[string]string{"username": "@"+*name, "action": *action, "chest": *chest}
+
+    w := webData{"/locker", dataset}
     fmt.Println(postToWeb(w))
 }
 
