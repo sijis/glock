@@ -7,15 +7,13 @@ import (
 	"net/http"
 	"net/url"
 	"os/user"
+
+	"github.com/spf13/viper"
 )
 
 type webData struct {
 	dataset map[string]string
 }
-
-var (
-	endpoint = "http://127.0.0.1:3141/locker"
-)
 
 func main() {
 	user, _ := user.Current()
@@ -24,6 +22,16 @@ func main() {
 	chest := flag.String("chest", "", "Which chest to lock/unlock.")
 	flag.Parse()
 
+	viper.SetConfigName("glock-config")
+	viper.AddConfigPath("$HOME/.config/")
+
+	if viper.ReadInConfig() != nil {
+		fmt.Println("No configuration file loaded - using defaults")
+	}
+
+	viper.SetDefault("endpoint", "http://127.0.0.1:5000")
+	endpoint := viper.GetString("endpoint")
+
 	dataset := map[string]string{
 		"username": "@" + *name,
 		"action":   *action,
@@ -31,10 +39,10 @@ func main() {
 	}
 
 	w := webData{dataset}
-	fmt.Println(postToWeb(w))
+	fmt.Println(postToWeb(w, endpoint))
 }
 
-func postToWeb(data webData) string {
+func postToWeb(data webData, endpoint string) string {
 
 	//fmt.Println("[DEBUG] postToWeb: ", data)
 	params := url.Values{}
