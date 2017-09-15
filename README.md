@@ -24,3 +24,13 @@ Options:
 * action: Used to lock/unlock or view locked items. Possible options are: lock, unlock, locked
 * chest: The name of the chest to lock/unlock. Optional.
 * username: The username that will lock/unlock the chest. Optional.
+
+
+Building
+--------
+Create the binary and then copy it to a `bin` directory.
+
+```
+$ go build -o glock cmd/glock/main.go
+$mv glock ~/bin/
+```
