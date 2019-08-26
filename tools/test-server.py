@@ -2,11 +2,11 @@ from flask import Flask, request
 
 APP = Flask(__name__)
 
-@APP.route('/')
+@APP.route('/index')
 def main():
     return 'Main page'
 
-@APP.route('/post', methods=['POST'])
+@APP.route('/', methods=['POST'])
 def post():
     d = {}
     for k, v in request.form.items():
