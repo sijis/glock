@@ -1,4 +1,4 @@
-package main
+package glock
 
 import (
 	"flag"
@@ -15,7 +15,8 @@ type webData struct {
 	dataset map[string]string
 }
 
-func main() {
+// Run Entry point in launching cli
+func Run() {
 	user, _ := user.Current()
 	name := flag.String("username", user.Username, "Username used to lock/unlock chest.")
 	action := flag.String("action", "locked", "Action to take.")
