@@ -31,6 +31,6 @@ Building
 Create the binary and then copy it to a `bin` directory.
 
 ```
-$ go build -o glock cmd/glock/main.go
-$mv glock ~/bin/
+$ go build
+$ mv glock ~/bin/
 ```
