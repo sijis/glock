@@ -58,6 +58,9 @@ func postToWeb(data webData, endpoint string) string {
 	}
 
 	defer resp.Body.Close()
+	if resp.StatusCode > 299 {
+		return fmt.Sprintf("Response failed with status code: %d", resp.StatusCode)
+	}
 	body, _ := ioutil.ReadAll(resp.Body)
 	return string(body)
 }
