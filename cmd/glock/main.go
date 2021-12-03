@@ -54,7 +54,7 @@ func postToWeb(data webData, endpoint string) string {
 	resp, err := http.PostForm(endpoint, params)
 
 	if err != nil {
-		panic(err)
+		return err.Error()
 	}
 
 	defer resp.Body.Close()
